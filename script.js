@@ -24,7 +24,6 @@ function calcular() {
 
     let erro = false;
     let regex = new RegExp(/[\d\.\,]+/);
-    
     let result = regex.exec(icms);
     if (result == null || parseFloat(result[0]) <= 0) {
         adicionaAlerta(inputAliquotaIcms)
@@ -60,6 +59,22 @@ function removeAlerta(input) {
 
 function adicionaAlerta(input) {
     input.classList.add(CLASSE_ERRO)
+}
+
+function trataValorFloat(input) {
+    let regex = new RegExp(/[\d\.\,]+/);
+    let regexResultado = regex.exec(input.value);
+
+    if (regexResultado == null) return 0;
+
+    // 1.000,00 -> 1000,00
+    let resultado = regexResultado[0].replace(/\./g, '')
+    
+    // 1000,00 -> 1000.00
+    resultado.replace(/\,/g, '.')
+
+    return parseFloat(resultado)
+
 }
 
 function calcularImposto() {
