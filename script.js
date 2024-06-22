@@ -1,3 +1,6 @@
+var botaoCalcularImposto = document.querySelector('.btn_calcular')
+botaoCalcularImposto.addEventListener('click', () => calcular())
+
 
 function calcular() {
     let icms = document.querySelector('.aliquota_icms').value;
