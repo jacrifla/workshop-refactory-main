@@ -20,30 +20,27 @@ function calcular() {
     let qtde = inputQuantidadePedido.value;
     let val_unit = inputValorUnitario.value;
 
+    possuiPreenchimentoCamposObrigatorios()
+
     let erro = false;
     let regex = new RegExp(/[\d\.\,]+/);
+    
     let result = regex.exec(icms);
     if (result == null || parseFloat(result[0]) <= 0) {
-        inputAliquotaIcms.classList.add('has-background-danger-50');
+        adicionaAlerta(inputAliquotaIcms)
         erro = true;
-    } else {
-        inputAliquotaIcms.classList.remove('has-background-danger-50');
-    }
-
+    } 
+    
     result = regex.exec(qtde);
     if (result == null || parseFloat(result[0]) <= 0) {
-        inputQuantidadePedido.classList.add('has-background-danger-50');
+        adicionaAlerta(inputQuantidadePedido)
         erro = true;
-    } else {
-        inputQuantidadePedido.classList.remove('has-background-danger-50');
-    }
-
+    } 
+    
     result = regex.exec(val_unit);
     if (result == null || parseFloat(result[0]) <= 0) {
-        inputValorUnitario.classList.add('has-background-danger-50');
+        adicionaAlerta(inputValorUnitario)
         erro = true;
-    } else {
-        inputValorUnitario.classList.remove('has-background-danger-50');
     }
 
     if (erro === false) {
@@ -51,8 +48,18 @@ function calcular() {
     }
 }
 
-function possuiPreenchimentoCamposObrigatorios(params) {
-    
+function possuiPreenchimentoCamposObrigatorios() {
+    CAMPOS_OBRIGATORIOS.forEach((input) => removeAlerta(input))
+}
+
+const CLASSE_ERRO = 'has-background-danger-50'
+
+function removeAlerta(input) {
+    input.classList.remove(CLASSE_ERRO)
+}
+
+function adicionaAlerta(input) {
+    input.classList.add(CLASSE_ERRO)
 }
 
 function calcularImposto() {
