@@ -12,8 +12,14 @@ const INDICE_CONSUMIDOR_FINAL = 0
 var inputAliquotaIcms = document.querySelector('.aliquota_icms')
 var inputQuantidadePedido = document.querySelector('.qtde_pedido')
 var inputValorUnitario = document.querySelector('.valor_unitario')
+var inputValorFrete = document.querySelector('.valor_frete')
+var inputValorSeguro = document.querySelector('.valor_seguro')
+var inputValorDespesasAcessorias = document.querySelector('.valor_despesas_acessorias')
+var inputDestinoOperacao = document.getElementById('destino_operacao')
+var blocoResultado = document.querySelector('.resultado')
 
 const CAMPOS_OBRIGATORIOS = [inputAliquotaIcms, inputQuantidadePedido, inputValorUnitario]
+const CLASSE_ERRO = 'has-background-danger-50'
 
 function calcular() {
     if (possuiPreenchimentoCamposObrigatorios()) calcularImposto();
@@ -33,8 +39,6 @@ function possuiPreenchimentoCamposObrigatorios() {
 
     return resultCamposObrigatoriosPreenchidos
 }
-
-const CLASSE_ERRO = 'has-background-danger-50'
 
 function removeAlerta(input) {
     input.classList.remove(CLASSE_ERRO)
@@ -73,7 +77,7 @@ function calcularImposto() {
     let valor_ipi = (base_calculo * ALIQUOTA_IPI) / 100;
 
     let valor_icms = 0;
-    if (document.getElementById('destino_operacao').value == INDICE_CONSUMIDOR_FINAL) {
+    if (inputDestinoOperacao.value == INDICE_CONSUMIDOR_FINAL) {
         base_calculo_icms = (base_calculo + valor_ipi);
         valor_icms = (base_calculo_icms * limparValor(inputAliquotaIcms.value)) / 100;
     } else {
@@ -81,13 +85,13 @@ function calcularImposto() {
         valor_icms = (base_calculo * limparValor(inputAliquotaIcms.value)) / 100;
     }
 
-    document.querySelector('.resultado').innerHTML = 'Total do Produto: R$ ' + valor_produto.toFixed(2) + '<br>';
-    document.querySelector('.resultado').innerHTML += 'Base de Cálculo:  R$ ' + base_calculo.toFixed(2) + '<br>';
-    document.querySelector('.resultado').innerHTML += 'Base de Cálculo ICMS:  R$ ' + base_calculo_icms.toFixed(2) + '<br><br>';
-    document.querySelector('.resultado').innerHTML += 'Total de ICMS: R$ ' + valor_icms.toFixed(2) + '<br>';
-    document.querySelector('.resultado').innerHTML += 'Total de PIS: R$ ' + valor_pis.toFixed(2) + '<br>';
-    document.querySelector('.resultado').innerHTML += 'Total de COFINS: R$ ' + valor_cofins.toFixed(2) + '<br>';
-    document.querySelector('.resultado').innerHTML += 'Total de IPI: R$ ' + valor_ipi.toFixed(2);
+   blocoResultado.innerHTML = 'Total do Produto: R$ ' + valor_produto.toFixed(2) + '<br>';
+   blocoResultado.innerHTML += 'Base de Cálculo:  R$ ' + base_calculo.toFixed(2) + '<br>';
+   blocoResultado.innerHTML += 'Base de Cálculo ICMS:  R$ ' + base_calculo_icms.toFixed(2) + '<br><br>';
+   blocoResultado.innerHTML += 'Total de ICMS: R$ ' + valor_icms.toFixed(2) + '<br>';
+   blocoResultado.innerHTML += 'Total de PIS: R$ ' + valor_pis.toFixed(2) + '<br>';
+   blocoResultado.innerHTML += 'Total de COFINS: R$ ' + valor_cofins.toFixed(2) + '<br>';
+   blocoResultado.innerHTML += 'Total de IPI: R$ ' + valor_ipi.toFixed(2);
 }
 
 function limparValor(valor) {
@@ -97,15 +101,15 @@ function limparValor(valor) {
 }
 
 function limpar() {
-    document.querySelector('.resultado').innerHTML = 'Não existem resultados !';
-    document.getElementById('destino_operacao').value = 0;
+    blocoResultado.innerHTML = 'Não existem resultados !';
+    inputDestinoOperacao.value = 0;
     inputAliquotaIcms.value = '0,00';
     inputQuantidadePedido.value = '0,00';
     inputValorUnitario.value = '0,00';
-    document.querySelector('.valor_frete').value = '0,00';
-    document.querySelector('.valor_seguro').value = '0,00';
-    document.querySelector('.valor_despesas_acessorias').value = '0,00';
-    inputAliquotaIcms.classList.remove('has-background-danger-50');
-    inputQuantidadePedido.classList.remove('has-background-danger-50');
-    inputValorUnitario.classList.remove('has-background-danger-50');
+    inputValorFrete.value = '0,00';
+    inputValorSeguro.value = '0,00';
+    inputValorDespesasAcessorias.value = '0,00';
+    inputAliquotaIcms.classList.remove(CLASSE_ERRO);
+    inputQuantidadePedido.classList.remove(CLASSE_ERRO);
+    inputValorUnitario.classList.remove(CLASSE_ERRO);
 }
