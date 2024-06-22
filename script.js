@@ -1,4 +1,7 @@
 var botaoCalcularImposto = document.querySelector('.btn_calcular')
+var botaoLimparCampos = document.querySelector('.btn_limpar')
+
+botaoLimparCampos.addEventListener('click', () => limpar())
 botaoCalcularImposto.addEventListener('click', () => calcular())
 
 
