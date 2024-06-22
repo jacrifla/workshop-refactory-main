@@ -7,6 +7,7 @@ botaoCalcularImposto.addEventListener('click', () => calcular())
 const ALIQUOTA_PIS = .65
 const ALIQUOTA_COFINS = 3
 const ALIQUOTA_IPI = .78
+const INDICE_CONSUMIDOR_FINAL = 0
 
 function calcular() {
     let icms = document.querySelector('.aliquota_icms').value;
@@ -57,7 +58,7 @@ function calcularImposto() {
     let valor_ipi = (base_calculo * ALIQUOTA_IPI) / 100;
 
     let valor_icms = 0;
-    if (document.getElementById('destino_operacao').value == '0') {
+    if (document.getElementById('destino_operacao').value == INDICE_CONSUMIDOR_FINAL) {
         base_calculo_icms = (base_calculo + valor_ipi);
         valor_icms = (base_calculo_icms * limparValor(document.querySelector('.aliquota_icms').value)) / 100;
     } else {
