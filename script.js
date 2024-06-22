@@ -16,36 +16,22 @@ var inputValorUnitario = document.querySelector('.valor_unitario')
 const CAMPOS_OBRIGATORIOS = [inputAliquotaIcms, inputQuantidadePedido, inputValorUnitario]
 
 function calcular() {
-    let icms = inputAliquotaIcms.value;
-    let qtde = inputQuantidadePedido.value;
-    let val_unit = inputValorUnitario.value;
-
-    possuiPreenchimentoCamposObrigatorios()
-
-    let erro = false;
-
-    if (trataValorFloat(inputAliquotaIcms) <= 0) {
-        adicionaAlerta(inputAliquotaIcms)
-        erro = true;
-    }
-    
-    if (trataValorFloat(inputQuantidadePedido) <= 0) {
-        adicionaAlerta(inputQuantidadePedido)
-        erro = true;
-    }
-    
-    if (trataValorFloat(inputValorUnitario) <= 0) {
-        adicionaAlerta(inputValorUnitario)
-        erro = true;
-    }
-
-    if (erro === false) {
-        calcularImposto();
-    }
+    if (possuiPreenchimentoCamposObrigatorios()) calcularImposto();
 }
 
 function possuiPreenchimentoCamposObrigatorios() {
     CAMPOS_OBRIGATORIOS.forEach((input) => removeAlerta(input))
+
+    let resultCamposObrigatoriosPreenchidos = true
+    CAMPOS_OBRIGATORIOS.forEach((input) => {
+        if (trataValorFloat(input) <= 0) {
+            adicionaAlerta(input)
+            resultCamposObrigatoriosPreenchidos = false
+            
+        }
+    })
+
+    return resultCamposObrigatoriosPreenchidos
 }
 
 const CLASSE_ERRO = 'has-background-danger-50'
