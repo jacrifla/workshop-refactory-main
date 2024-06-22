@@ -9,10 +9,11 @@ const ALIQUOTA_COFINS = 3
 const ALIQUOTA_IPI = .78
 const INDICE_CONSUMIDOR_FINAL = 0
 var inputAliquotaIcms = document.querySelector('.aliquota_icms')
+var inputQuantidadePedido = document.querySelector('.qtde_pedido')
 
 function calcular() {
     let icms = inputAliquotaIcms.value;
-    let qtde = document.querySelector('.qtde_pedido').value;
+    let qtde = inputQuantidadePedido.value;
     let val_unit = document.querySelector('.valor_unitario').value;
 
     let erro = false;
@@ -27,10 +28,10 @@ function calcular() {
 
     result = regex.exec(qtde);
     if (result == null || parseFloat(result[0]) <= 0) {
-        document.querySelector('.qtde_pedido').classList.add('has-background-danger-50');
+        inputQuantidadePedido.classList.add('has-background-danger-50');
         erro = true;
     } else {
-        document.querySelector('.qtde_pedido').classList.remove('has-background-danger-50');
+        inputQuantidadePedido.classList.remove('has-background-danger-50');
     }
 
     result = regex.exec(val_unit);
@@ -47,7 +48,7 @@ function calcular() {
 }
 
 function calcularImposto() {
-    let valor_produto = (limparValor(document.querySelector('.qtde_pedido').value) *
+    let valor_produto = (limparValor(inputQuantidadePedido.value) *
         limparValor(document.querySelector('.valor_unitario').value));
 
     let base_calculo = (valor_produto + limparValor(document.querySelector('.valor_seguro').value) +
@@ -86,12 +87,12 @@ function limpar() {
     document.querySelector('.resultado').innerHTML = 'Não existem resultados !';
     document.getElementById('destino_operacao').value = 0;
     inputAliquotaIcms.value = '0,00';
-    document.querySelector('.qtde_pedido').value = '0,00';
+    inputQuantidadePedido.value = '0,00';
     document.querySelector('.valor_unitario').value = '0,00';
     document.querySelector('.valor_frete').value = '0,00';
     document.querySelector('.valor_seguro').value = '0,00';
     document.querySelector('.valor_despesas_acessorias').value = '0,00';
     inputAliquotaIcms.classList.remove('has-background-danger-50');
-    document.querySelector('.qtde_pedido').classList.remove('has-background-danger-50');
+    inputQuantidadePedido.classList.remove('has-background-danger-50');
     document.querySelector('.valor_unitario').classList.remove('has-background-danger-50');
 }
