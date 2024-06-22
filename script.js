@@ -12,7 +12,8 @@ const INDICE_CONSUMIDOR_FINAL = 0
 var inputAliquotaIcms = document.querySelector('.aliquota_icms')
 var inputQuantidadePedido = document.querySelector('.qtde_pedido')
 var inputValorUnitario = document.querySelector('.valor_unitario')
-console.log(inputValorUnitario);
+
+const CAMPOS_OBRIGATORIOS = [inputAliquotaIcms, inputQuantidadePedido, inputValorUnitario]
 
 function calcular() {
     let icms = inputAliquotaIcms.value;
@@ -48,6 +49,10 @@ function calcular() {
     if (erro === false) {
         calcularImposto();
     }
+}
+
+function possuiPreenchimentoCamposObrigatorios(params) {
+    
 }
 
 function calcularImposto() {
