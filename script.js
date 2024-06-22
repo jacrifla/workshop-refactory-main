@@ -23,21 +23,18 @@ function calcular() {
     possuiPreenchimentoCamposObrigatorios()
 
     let erro = false;
-    let regex = new RegExp(/[\d\.\,]+/);
-    let result = regex.exec(icms);
-    if (result == null || parseFloat(result[0]) <= 0) {
+
+    if (trataValorFloat(inputAliquotaIcms) <= 0) {
         adicionaAlerta(inputAliquotaIcms)
         erro = true;
-    } 
+    }
     
-    result = regex.exec(qtde);
-    if (result == null || parseFloat(result[0]) <= 0) {
+    if (trataValorFloat(inputQuantidadePedido) <= 0) {
         adicionaAlerta(inputQuantidadePedido)
         erro = true;
-    } 
+    }
     
-    result = regex.exec(val_unit);
-    if (result == null || parseFloat(result[0]) <= 0) {
+    if (trataValorFloat(inputValorUnitario) <= 0) {
         adicionaAlerta(inputValorUnitario)
         erro = true;
     }
@@ -69,7 +66,7 @@ function trataValorFloat(input) {
 
     // 1.000,00 -> 1000,00
     let resultado = regexResultado[0].replace(/\./g, '')
-    
+
     // 1000,00 -> 1000.00
     resultado.replace(/\,/g, '.')
 
