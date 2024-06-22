@@ -4,6 +4,9 @@ var botaoLimparCampos = document.querySelector('.btn_limpar')
 botaoLimparCampos.addEventListener('click', () => limpar())
 botaoCalcularImposto.addEventListener('click', () => calcular())
 
+const ALIQUOTA_PIS = .65
+const ALIQUOTA_COFINS = 3
+const ALIQUOTA_IPI = .78
 
 function calcular() {
     let icms = document.querySelector('.aliquota_icms').value;
@@ -49,9 +52,9 @@ function calcularImposto() {
         limparValor(document.querySelector('.valor_frete').value) +
         limparValor(document.querySelector('.valor_despesas_acessorias').value));
 
-    let valor_pis = (base_calculo * 0.65) / 100;
-    let valor_cofins = (base_calculo * 3.00) / 100;
-    let valor_ipi = (base_calculo * 0.78) / 100;
+    let valor_pis = (base_calculo * ALIQUOTA_PIS) / 100;
+    let valor_cofins = (base_calculo * ALIQUOTA_COFINS) / 100;
+    let valor_ipi = (base_calculo * ALIQUOTA_IPI) / 100;
 
     let valor_icms = 0;
     if (document.getElementById('destino_operacao').value == '0') {
