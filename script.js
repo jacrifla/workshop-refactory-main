@@ -8,9 +8,10 @@ const ALIQUOTA_PIS = .65
 const ALIQUOTA_COFINS = 3
 const ALIQUOTA_IPI = .78
 const INDICE_CONSUMIDOR_FINAL = 0
+var inputAliquotaIcms = document.querySelector('.aliquota_icms')
 
 function calcular() {
-    let icms = document.querySelector('.aliquota_icms').value;
+    let icms = inputAliquotaIcms.value;
     let qtde = document.querySelector('.qtde_pedido').value;
     let val_unit = document.querySelector('.valor_unitario').value;
 
@@ -18,10 +19,10 @@ function calcular() {
     let regex = new RegExp(/[\d\.\,]+/);
     let result = regex.exec(icms);
     if (result == null || parseFloat(result[0]) <= 0) {
-        document.querySelector('.aliquota_icms').classList.add('has-background-danger-50');
+        inputAliquotaIcms.classList.add('has-background-danger-50');
         erro = true;
     } else {
-        document.querySelector('.aliquota_icms').classList.remove('has-background-danger-50');
+        inputAliquotaIcms.classList.remove('has-background-danger-50');
     }
 
     result = regex.exec(qtde);
@@ -60,10 +61,10 @@ function calcularImposto() {
     let valor_icms = 0;
     if (document.getElementById('destino_operacao').value == INDICE_CONSUMIDOR_FINAL) {
         base_calculo_icms = (base_calculo + valor_ipi);
-        valor_icms = (base_calculo_icms * limparValor(document.querySelector('.aliquota_icms').value)) / 100;
+        valor_icms = (base_calculo_icms * limparValor(inputAliquotaIcms.value)) / 100;
     } else {
         base_calculo_icms = base_calculo;
-        valor_icms = (base_calculo * limparValor(document.querySelector('.aliquota_icms').value)) / 100;
+        valor_icms = (base_calculo * limparValor(inputAliquotaIcms.value)) / 100;
     }
 
     document.querySelector('.resultado').innerHTML = 'Total do Produto: R$ ' + valor_produto.toFixed(2) + '<br>';
@@ -84,13 +85,13 @@ function limparValor(valor) {
 function limpar() {
     document.querySelector('.resultado').innerHTML = 'Não existem resultados !';
     document.getElementById('destino_operacao').value = 0;
-    document.querySelector('.aliquota_icms').value = '0,00';
+    inputAliquotaIcms.value = '0,00';
     document.querySelector('.qtde_pedido').value = '0,00';
     document.querySelector('.valor_unitario').value = '0,00';
     document.querySelector('.valor_frete').value = '0,00';
     document.querySelector('.valor_seguro').value = '0,00';
     document.querySelector('.valor_despesas_acessorias').value = '0,00';
-    document.querySelector('.aliquota_icms').classList.remove('has-background-danger-50');
+    inputAliquotaIcms.classList.remove('has-background-danger-50');
     document.querySelector('.qtde_pedido').classList.remove('has-background-danger-50');
     document.querySelector('.valor_unitario').classList.remove('has-background-danger-50');
 }
